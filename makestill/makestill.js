@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var argv = require('yargs').argv;
+var shell = requite('shelljs');
 
 var templatePath = __dirname + '/template_controller.js';
 var imgPath = argv._[0] || null;
@@ -62,7 +63,7 @@ process.stdin.on('data', data => {
         }
 
         //copy over the image
-        fs.createReadStream(imgPath).pipe(fs.createWriteStream(newImg));
+        shell.cp(imgPath, newImg);
 
         //Import the template file
         fs.readFile(templatePath, (err, data) => {

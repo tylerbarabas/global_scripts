@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var argv = require('yargs').argv;
+var shell = require('shelljs');
 
 var templatePath = __dirname + '/template_controller.js';
 var jsonPath = argv._[0] || null;
@@ -76,7 +77,8 @@ function processContent(json){
     for (var i=0;i<json.images.length;i++){
         var imgpath = `${ogdir}/${json.images[i]}`;
         var destpath = `${dir}/ss-${i}.${json.images[i].split('.')[1]}`;
-        fs.createReadStream(imgpath).pipe(fs.createWriteStream(destpath));
+
+        shell.cp(imgpath, destpath);
     }
 
     //Remove images from json data object
