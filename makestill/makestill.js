@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var argv = require('yargs').argv;
-var shell = requite('shelljs');
+var shell = require('shelljs');
 
 var templatePath = __dirname + '/template_controller.js';
 var imgPath = argv._[0] || null;
