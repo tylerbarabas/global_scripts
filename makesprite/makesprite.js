@@ -9,7 +9,7 @@ var destinationDir = argv._[1] || null;
 
 //Make sure I have all the args I need
 if ( jsonPath === null || destinationDir === null ) {
-    throw 'Invalid args: Try "spritejsonformat [original-json] [destination-directory]"';
+    throw 'Invalid args: Try "makesprite [original-json] [destination-directory]"';
 }
 
 var questions = [
@@ -25,7 +25,7 @@ function ask(i){
 ask(0);
 
 process.stdin.on('data', data => {
-    let str = data.toString().trim().toLowerCase();
+    var str = data.toString().trim().toLowerCase();
     if (answers.length === 0 && str === '') {
         ask(0);
         return;
@@ -51,7 +51,7 @@ process.stdin.on('data', data => {
             if (err) {
                 throw err;
             }
-            let json = JSON.parse(data);
+            var json = JSON.parse(data);
             processContent(json);
         });
     }
@@ -72,14 +72,10 @@ function processContent(json){
     }
 
     //Copy images from old directory to new one
-    let ogdir = jsonPath.substr(0,jsonPath.lastIndexOf('/'));
-    for (let i=0;i<json.images.length;i++){
-        let imgpath = `${ogdir}/${json.images[i]}`;
-        let destpath = `${dir}/ss-${i}.${json.images[i].split('.')[1]}`;
-
-        process.stdout.write('\n\n');
-        process.stdout.write(`Copying image from ${imgpath} to ${destpath}`)
-
+    var ogdir = jsonPath.substr(0,jsonPath.lastIndexOf('/'));
+    for (var i=0;i<json.images.length;i++){
+        var imgpath = `${ogdir}/${json.images[i]}`;
+        var destpath = `${dir}/ss-${i}.${json.images[i].split('.')[1]}`;
         fs.createReadStream(imgpath).pipe(fs.createWriteStream(destpath));
     }
 
@@ -123,6 +119,8 @@ function processContent(json){
             throw err;
         }
 
+
+        //make mods to template
         var str = data.toString('utf8');
         str = str.replace(/%a/, importImgString(jsonCopy.images));
         str = str.replace(/%b/, nameCamel);
@@ -139,11 +137,11 @@ function processContent(json){
         } else {
             str = str.replace(/%e/, orientation);
         }
-        console.log('\n')
-        console.log(str);
 
+        //write to controller.js
         fs.writeFileSync(`${dir}/controller.js`, str, 'utf8');
 
+        console.log('\n New sprite created at ' + dir);
         process.exit();
     });
 }
