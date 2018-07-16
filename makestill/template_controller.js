@@ -11,7 +11,12 @@ export default class %b extends DomElement {
         this.dom = document.createElement('IMG');
         this.dom.id = '%c';
         this.dom.setAttribute('src', IMG);
-        this.style('%d', '100%');
+        this.style({
+            %d: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0
+        });
         this.appendTo();
     }
 }

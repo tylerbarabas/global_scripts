@@ -13,6 +13,11 @@ export default class %b extends SpriteSheet {
     init(){
         super.init();
         this.dom.id = '%d';
-        this.style('%e','100%');
+        this.style({
+            %e: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0
+        });
    } 
 }
