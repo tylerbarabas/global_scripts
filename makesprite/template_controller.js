@@ -1,4 +1,4 @@
-import SpriteSheet from 'bbcore/sprite-sheet';
+import SpriteSheet from 'mmbuz';
 import JSON from './instructions.json';
 %a
 
