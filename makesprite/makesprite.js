@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+var _ = require('lodash')
 var fs = require('fs');
 var argv = require('yargs').argv;
 var shell = require('shelljs');
@@ -61,7 +62,8 @@ process.stdin.on('data', data => {
 function processContent(json){
     var jsonCopy = JSON.parse(JSON.stringify(json));
     var name = answers[0];
-    var nameCamel = name.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    var nameStartCase = _.startCase(name).replace(' ','');
+    
     var orientation = answers[1];
 
     //Create new directory
@@ -121,11 +123,10 @@ function processContent(json){
             throw err;
         }
 
-
         //make mods to template
         var str = data.toString('utf8');
         str = str.replace(/%a/, importImgString(jsonCopy.images));
-        str = str.replace(/%b/, nameCamel);
+        str = str.replace(/%b/, nameStartCase);
         str = str.replace(/%c/, imgArrayString(jsonCopy.images));
         str = str.replace(/%d/, name);
 

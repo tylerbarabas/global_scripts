@@ -1,4 +1,4 @@
-import SpriteSheet from 'mmbuz';
+import { SpriteSheet } from 'mmbuz';
 import JSON from './instructions.json';
 %a
 
