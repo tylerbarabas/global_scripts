@@ -86,8 +86,8 @@ function processContent(json){
     //Remove images from json data object
     delete json.images;
 
-    //set framerate to 12
-    json.framerate = 12;
+    //set framerate to 24
+    json.framerate = 24;
     
     // iterate through frames, find the max in last two fields of array
     var max1 = null;
