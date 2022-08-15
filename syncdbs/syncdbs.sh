@@ -1,4 +1,9 @@
 #!/bin/sh
 
-rsync gty1:/var/www/db_dump/* ~/db_dump
-rsync gty1:/var/www/dev_db_dump/* ~/dev_db_dump
+if [ -z "$1" ]
+then
+  echo "Please select a server."
+else
+  rsync $1:/root/bill-godfrey/data_dump/production ~/db_dump
+  rsync $1:/root/bill-godfrey/data_dump/stage ~/dev_db_dump
+fi
